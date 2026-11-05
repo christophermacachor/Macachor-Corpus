@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Macachor Research Corpus — Categorized Landing Page</title>
+  <meta name="description" content="A categorized landing page for the Macachor research corpus: ontology, epistemology, institutional critique, physics, mathematics, biology, and symbolic projects." />
+  <style>
+    :root {
+      --bg: #f7f5f0;
+      --surface: #ffffff;
+      --ink: #1f1f1f;
+      --muted: #5f5a52;
+      --line: #ddd7ca;
+      --accent: #7a3e2f;
+      --accent-soft: #f1e6e0;
+      --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.04);
+      --radius: 14px;
+      --max: 1180px;
+
+      --foundation: #7a3e2f;
+      --critique: #5b4b8a;
+      --physics: #1f6f8b;
+      --math: #2f6b4f;
+      --bio: #8a5a1f;
+      --symbolic: #8a2f5a;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(122,62,47,.06), transparent 34rem),
+        radial-gradient(circle at top right, rgba(31,111,139,.06), transparent 34rem),
+        var(--bg);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.55;
+      font-size: 16px;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header.hero {
+      padding: 4rem 0 2rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 1.75rem;
+      height: 1px;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    h1 {
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+      font-weight: 600;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin: 0 0 1rem;
+      max-width: 18ch;
+    }
+
+    .lede {
+      max-width: 70ch;
+      color: var(--muted);
+      font-size: 1.06rem;
+      margin: 0 0 1.5rem;
+    }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: .75rem;
+      margin: 2rem 0 1.5rem;
+    }
+
+    .arch-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .arch-item strong {
+      display: block;
+      font-size: .82rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .35rem;
+    }
+
+    .arch-item span {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .reading-order {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      align-items: center;
+      margin: 1.25rem 0 0;
+      font-size: .9rem;
+      color: var(--muted);
+    }
+
+    .reading-order strong {
+      color: var(--ink);
+      margin-right: .25rem;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: .3rem .7rem;
+      font-size: .82rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: border-color .18s ease, color .18s ease, background .18s ease;
+    }
+
+    .chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    /* Sticky nav */
+    nav.toc {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(247,245,240,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      margin-top: 1rem;
+    }
+
+    .toc-inner {
+      display: flex;
+      gap: .4rem;
+      overflow-x: auto;
+      padding: .65rem 0;
+      scrollbar-width: thin;
+    }
+
+    .toc a {
+      white-space: nowrap;
+      text-decoration: none;
+      font-size: .82rem;
+      color: var(--muted);
+      padding: .35rem .65rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    .toc a:hover {
+      color: var(--accent);
+      border-color: var(--line);
+      background: var(--surface);
+    }
+
+    /* Sections */
+    main {
+      padding: 1.5rem 0 4rem;
+    }
+
+    section.category {
+      margin-top: 3rem;
+      scroll-margin-top: 4.5rem;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: .75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      line-height: 1.15;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+
+    .section-head p {
+      margin: .25rem 0 0;
+      color: var(--muted);
+      font-size: .92rem;
+      max-width: 65ch;
+    }
+
+    .count {
+      flex: 0 0 auto;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: .3rem .6rem;
+      background: var(--surface);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.15rem 1.15rem 1.05rem;
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: var(--line);
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 2px 4px rgba(0,0,0,.05), 0 14px 30px rgba(0,0,0,.07);
+      border-color: #c9c1b2;
+    }
+
+    .card h3 {
+      font-size: 1.02rem;
+      line-height: 1.3;
+      margin: 0 0 .45rem;
+      letter-spacing: -0.005em;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .card .url {
+      margin-top: auto;
+      padding-top: .9rem;
+      font-size: .78rem;
+      color: #8a8378;
+      word-break: break-all;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: .68rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: .22rem .5rem;
+      margin-bottom: .65rem;
+      width: fit-content;
+    }
+
+    .card.foundation::before { background: var(--foundation); }
+    .card.foundation .badge { background: #f3e7e2; color: var(--foundation); }
+
+    .card.critique::before { background: var(--critique); }
+    .card.critique .badge { background: #ece8f5; color: var(--critique); }
+
+    .card.physics::before { background: var(--physics); }
+    .card.physics .badge { background: #e3f0f4; color: var(--physics); }
+
+    .card.math::before { background: var(--math); }
+    .card.math .badge { background: #e5f0e9; color: var(--math); }
+
+    .card.bio::before { background: var(--bio); }
+    .card.bio .badge { background: #f5ecdf; color: var(--bio); }
+
+    .card.symbolic::before { background: var(--symbolic); }
+    .card.symbolic .badge { background: #f4e4eb; color: var(--symbolic); }
+
+    .sic {
+      font-size: .8em;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* Status note */
+    .status-note {
+      margin-top: 3rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.25rem 1.1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .status-note h2 {
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+      font-size: 1.25rem;
+      margin: 0 0 .5rem;
+    }
+
+    .status-note p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .94rem;
+      max-width: 85ch;
+    }
+
+    .totals {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      margin-top: 1rem;
+    }
+
+    .totals span {
+      font-size: .78rem;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: .28rem .6rem;
+      background: #fbfaf7;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 1.5rem 0 3rem;
+      color: var(--muted);
+      font-size: .84rem;
+    }
+
+    footer p {
+      margin: .25rem 0;
+      max-width: 85ch;
+    }
+
+    @media (max-width: 640px) {
+      header.hero { padding-top: 2.5rem; }
+      .section-head { align-items: flex-start; flex-direction: column; }
+      .count { align-self: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .card { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Categorized landing page · inventory dated 5 November 2026</div>
+      <h1>The Macachor Research Corpus</h1>
+      <p class="lede">
+        A layered, territory-first research ecosystem. It is not a flat list of sites:
+        ontology supplies the constraints, epistemology supplies the audit procedure,
+        institutional critique examines how meaning becomes authority, and the domain pages
+        attempt to instantiate the framework in physics, mathematics, biology, and symbolic work.
+      </p>
+
+      <div class="architecture" aria-label="Corpus architecture">
+        <div class="arch-item">
+          <strong>Ontology</strong>
+          <span>Territory precedes cartography. Representations do not create the reality they describe.</span>
+        </div>
+        <div class="arch-item">
+          <strong>Epistemology</strong>
+          <span>Observation logs, second-order observation, invariant extraction, inverse connotation, independent validation.</span>
+        </div>
+        <div class="arch-item">
+          <strong>Critique</strong>
+          <span>How institutions convert meaning into authority—and how to audit that conversion.</span>
+        </div>
+        <div class="arch-item">
+          <strong>Derivation</strong>
+          <span>Physics, mathematics, biology, and applied tools attempt to instantiate the framework.</span>
+        </div>
+      </div>
+
+      <div class="reading-order">
+        <strong>Suggested reading order:</strong>
+        <a class="chip" href="#foundation">Territory Domain</a>
+        <span>→</span>
+        <a class="chip" href="#foundation">Polymath Method</a>
+        <span>→</span>
+        <a class="chip" href="#critique">Authority Structure</a>
+        <span>→</span>
+        <a class="chip" href="#critique">Scope Challenge</a>
+        <span>→</span>
+        <a class="chip" href="#physics">Atoms Know</a>
+        <span>/</span>
+        <a class="chip" href="#math">144-Poly</a>
+        <span>→</span>
+        <a class="chip" href="#math">domain-specific pages</a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Category navigation">
+    <div class="wrap toc-inner">
+      <a href="#foundation">Foundational Ontology &amp; Epistemology</a>
+      <a href="#critique">Institutional Critique</a>
+      <a href="#physics">Physics &amp; Cosmology</a>
+      <a href="#math">Mathematics &amp; Geometry</a>
+      <a href="#bio">Biology, Medicine &amp; Material Memory</a>
+      <a href="#symbolic">Symbolic &amp; Educational</a>
+      <a href="#status">Corpus Status</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- FOUNDATION -->
+    <section class="category" id="foundation">
+      <div class="section-head">
+        <div>
+          <h2>Foundational Ontology &amp; Epistemology</h2>
+          <p>The ontological constraints and epistemic procedure for the corpus.</p>
+        </div>
+        <span class="count">2 sites</span>
+      </div>
+
+      <div class="grid">
+        <a class="card foundation" href="https://territoryfirst.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Ontology</span>
+          <h3>The Law of the Territory Domain</h3>
+          <p>
+            The corpus’s primary ontological statement: <strong>territory precedes cartography</strong>.
+            It defines the Macachor Fundamental Invariant as the first derivative of structure and sets out
+            the canonical chain: Substrate → Structure → Invariant → Representation → Numerical Encoding →
+            Linguistic Encoding → Meaning. Maps, models, and measurements encode reality; they do not create it.
+          </p>
+          <span class="url">territoryfirst.macachor.org</span>
+        </a>
+
+        <a class="card foundation" href="https://polymathchristopher.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Epistemology</span>
+          <h3>The Polymath Method of Christopher Macachor</h3>
+          <p>
+            The corpus’s primary epistemological procedure. It moves from observation logs to candidate
+            invariants through <strong>second-order observation</strong>—every observation must be paired with
+            an account of how it was produced. Its truth procedure is <strong>inverse connotation</strong>:
+            reversing the movement by which a label acquires explanatory authority. Claims must survive
+            independent validation.
+          </p>
+          <span class="url">polymathchristopher.macachor.org</span>
+        </a>
+      </div>
+
+      <p style="margin:1rem 0 0; color:var(--muted); font-size:.88rem; max-width:80ch;">
+        <strong>Functional distinction:</strong> Territory Domain supplies ontological constraints;
+        Polymath Method supplies the epistemic procedure for extracting and validating invariants under
+        those constraints. The division is functional, not absolute.
+      </p>
+    </section>
+
+    <!-- CRITIQUE -->
+    <section class="category" id="critique">
+      <div class="section-head">
+        <div>
+          <h2>Institutional Critique &amp; Epistemic Secession</h2>
+          <p>How authority structures convert meaning into consequence—and how to audit that conversion.</p>
+        </div>
+        <span class="count">4 sites</span>
+      </div>
+
+      <div class="grid">
+        <a class="card critique" href="https://theauthoritystructure.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Authority</span>
+          <h3>The Authority Structure</h3>
+          <p>
+            A four-layer analytical method—<strong>Record → Inference → Theory → Prediction</strong>—for
+            examining how institutions convert knowledge into historical consequence. Its core proposition:
+            authority structures, through bureaucratic language, translate possibility into action while
+            mediating the perception of responsibility.
+          </p>
+          <span class="url">theauthoritystructure.macachor.org</span>
+        </a>
+
+        <a class="card critique" href="https://scientificbeliefsystems.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">History of science</span>
+          <h3>Scientific Belief Systems</h3>
+          <p>
+            A historical critique arguing that Einstein’s 1905 breakthrough was built on a “citation loophole”
+            exploited from his position as an academic outsider. It also argues that Heaviside’s removal of
+            the scalar from Hamilton’s quaternions was the “original amputation” later canonized as spacetime.
+          </p>
+          <span class="url">scientificbeliefsystems.macachor.org</span>
+        </a>
+
+        <a class="card critique" href="https://thescopechallenge.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Translation</span>
+          <h3>The Scope Challenge</h3>
+          <p>
+            A translation architecture built on <strong>one territory, multiple maps</strong>. It defines six
+            tiers of translation—from raw territory observation to formal invariant—with the rule that every
+            translation must retain a traceable route back to the original observation. A study’s scope is a
+            boundary around an investigation, not a declaration that the territory ends there.
+          </p>
+          <span class="url">thescopechallenge.macachor.org</span>
+        </a>
+
+        <a class="card critique" href="https://tollbooth.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Epistemic secession</span>
+          <h3>Tollbooth — The Fragments of the Blade</h3>
+          <p>
+            The <strong>Epistemic Secession Project</strong>’s operational blueprint. It argues that modern
+            power rests on a <strong>monopoly of meaning</strong> enforced through specialized vocabulary—a
+            “Tollbooth of Meaning” in law, medicine, physics, and technology. The atom was the first “fragment”
+            (the prototype of epistemic rent-seeking); the algorithm is the refinement.
+          </p>
+          <span class="url">tollbooth.macachor.org</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- PHYSICS -->
+    <section class="category" id="physics">
+      <div class="section-head">
+        <div>
+          <h2>Physics &amp; Cosmology</h2>
+          <p>Critiques of mainstream physics and constructive scalar-field alternatives.</p>
+        </div>
+        <span class="count">4 sites</span>
+      </div>
+
+      <div class="grid">
+        <a class="card physics" href="https://atomsknow.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Scalar ontology</span>
+          <h3>Atoms Know</h3>
+          <p>
+            A territory-first geometric ontology that inverts brain-centric models of consciousness. It derives
+            a forced Gram-matrix invariant <strong>c = −1/3</strong> and a face-sharing screw rotation
+            <strong>θ₀ = ±131.81°</strong>, with physical correspondence demonstrated across eleven independent
+            scales—from atomic (β-Mn) and genomic (CTCF) to neurological (grid cells) and clinical (fetal MRI).
+            The immortal jellyfish is presented as proof that life thrives through direct vibrational negotiation
+            with its own DNA.
+          </p>
+          <span class="url">atomsknow.macachor.org</span>
+        </a>
+
+        <a class="card physics" href="https://einsteinillusion.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Historical reconstruction</span>
+          <h3>Einstein: History’s Greatest Tactical Illusion</h3>
+          <p>
+            A forensic reconstruction arguing that Einstein’s rise was a tactical semantic operation: a marginal
+            patent clerk used the formal machinery of science to reclassify a collaborative research front into a
+            single-author breakthrough. It integrates the 1932 Einstein–Freud letters and the 1939
+            Einstein–Roosevelt letter into a single timeline leading to the material uranium record.
+          </p>
+          <span class="url">einsteinillusion.macachor.org</span>
+        </a>
+
+        <a class="card physics" href="https://dipoletorus.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Scalar field</span>
+          <h3>Dipole Radiation · Scalar Torus</h3>
+          <p>
+            A compact technical note arguing that dipole radiation is not vector cancellation but
+            <strong>scalar density equilibrium</strong>. The field seeks the path of least scalar resistance,
+            not force balance. It invokes Olinto De Pretto’s 1903 aether hypothesis and treats E = mc² as a
+            scalar density equilibrium statement rather than a conversion formula.
+          </p>
+          <span class="url">dipoletorus.macachor.org</span>
+        </a>
+
+        <a class="card physics" href="https://star.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Empirical analysis</span>
+          <h3>Star — Φ669 Empirical Analysis</h3>
+          <p>
+            An empirical scalar-field methodology comparing atmospheric conditions at two events: a 1967
+            tornadic outbreak and the birth of Christopher Macachor on April 30, 1967, establishing baseline
+            scalar signatures. It defines a Macachor–Zohuri scalar field equation using CAPE, CIN, latent heat
+            flux, and vorticity, with ERA5/NOAA/NASA as data sources.
+          </p>
+          <span class="url">star.macachor.org</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- MATH -->
+    <section class="category" id="math">
+      <div class="section-head">
+        <div>
+          <h2>Mathematics &amp; Geometry</h2>
+          <p>Quaternionic, polyhedral, topological, and scalar-geometry formalisms under the Macachor Absolute φ = (√5−1)/2.</p>
+        </div>
+        <span class="count">5 sites</span>
+      </div>
+
+      <div class="grid">
+        <a class="card math" href="https://144poly.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Geometry open</span>
+          <h3>144-Face Polyhedron — Scalar-Fraction Quantization</h3>
+          <p>
+            An arithmetic-verified but <strong>geometry-open</strong> framework. It defines four quantized scalar
+            fractions (Q1–Q4) as powers of φ, summing to <strong>1 + φ² = 2 − φ ≈ 1.381966</strong>. The value
+            144 remains an arithmetic identity (20 × 7.2), but the geometric construction is explicitly marked as
+            <strong>NOT SUPPLIED</strong>. Previous false derivations equating 20 × φ² to 144 have been withdrawn.
+          </p>
+          <span class="url">144poly.macachor.org</span>
+        </a>
+
+        <a class="card math" href="https://fibonacci.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Arithmetic verified</span>
+          <h3>Fibonacci — Macachor Absolute: 144-Face Polyhedron &amp; 4D Fibonacci Weave</h3>
+          <p>
+            A closely related page reinforcing the same epistemic discipline: arithmetic verified, geometry not
+            supplied, scalar definitional. It presents the scalar-fraction quantization table and the definitional
+            displacement <strong>D_abs</strong>.
+          </p>
+          <span class="url">fibonacci.macachor.org</span>
+        </a>
+
+        <a class="card math" href="https://tetra.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Workbench</span>
+          <h3>Tetrahedral Polyhedron Builder — Scalar Geometry Workbench</h3>
+          <p>
+            A hands-on construction environment for tetrahedral polyhedra within the scalar-geometry framework.
+            The page presents itself as a <strong>Scalar Geometry Workbench</strong> with a human ↔ machine bridge,
+            JSON export, and a JavaScript API for programmatic assembly of tetrahedral structures. Unlike the
+            144-Face Polyhedron page—which explicitly marks its geometry as “NOT SUPPLIED”—this site supplies the
+            builder itself: a tool for instantiating tetrahedral configurations rather than a page of declared results.
+          </p>
+          <span class="url">tetra.macachor.org</span>
+        </a>
+
+        <a class="card math" href="https://quaternion.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Quaternionic</span>
+          <h3>Quaternionic Periodic Table</h3>
+          <p>
+            Maps the 118 elements onto Platonic solids, arguing that each element’s crystalline structure and
+            valence geometry correspond to a Platonic solid representing its scalar density equilibrium. It invokes
+            the <strong>MGDH</strong> lineage—Macachor, Gauss, De Pretto, Hamilton—and a coherence Lagrangian as
+            stated on the page.
+          </p>
+          <span class="url">quaternion.macachor.org</span>
+        </a>
+
+        <a class="card math" href="https://torroid.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Topology</span>
+          <h3>Twin Clifford Tori</h3>
+          <p>
+            An interactive visualization of scalar resonance via quaternion double-cover. Twin tori are embedded
+            on the 3-sphere (<strong>S³ ⊂ ℝ⁴</strong>), with a <strong>π/4 phase offset</strong> creating
+            interlocked submanifolds that never intersect in 4D. Rotation is sampled aperiodically to avoid rational
+            resonance and decoherence.
+          </p>
+          <span class="url">torroid.macachor.org</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- BIO -->
+    <section class="category" id="bio">
+      <div class="section-head">
+        <div>
+          <h2>Biology, Medicine &amp; Material Memory</h2>
+          <p>Scalar and enteric frameworks applied to biological and material systems.</p>
+        </div>
+        <span class="count">4 sites</span>
+      </div>
+
+      <div class="grid">
+        <a class="card bio" href="https://scalar.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Enteric system</span>
+          <h3>Scalar — Pregnancy: A Paradigm Shift</h3>
+          <p>
+            Argues that the emotional storm of pregnancy is not “just hormones” but a signal from the
+            <strong>enteric nervous system (ENS)</strong>—a network of ~500 million neurons that forms before the
+            cerebral cortex and can generate complex motor patterns autonomously. The ENS is framed as
+            evolutionarily primary, not a subordinate “second brain.”
+          </p>
+          <span class="url">scalar.macachor.org</span>
+        </a>
+
+        <a class="card bio" href="https://christophermacachor.github.io/Archonic-Removal/" target="_blank" rel="noopener">
+          <span class="badge">Biological synthesis</span>
+          <h3>Archonic Removal — The Macachor Compression Invariant V2</h3>
+          <p>
+            The corpus’s most expansive biological synthesis: <strong>Absolute Non-Local Consciousness (ANLC)</strong>
+            is presented as the primary architecture that constructs biological systems, not an emergent property.
+            It maps hydrostatic guideway engineering onto human physiology, integrates HeartMath coherence research,
+            and alleges a 1,500-year “Archonic medical narrative” suppressing enteric intelligence.
+          </p>
+          <span class="url">christophermacachor.github.io/Archonic-Removal/</span>
+        </a>
+
+        <a class="card bio" href="https://clayremembers.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Material memory</span>
+          <h3>The Clay Remembers</h3>
+          <p>
+            A material-science essay arguing that clay is a <strong>dual-porosity thermodynamic system</strong>
+            that retains a directional signature of every force it has experienced. It rigorously dismantles a
+            fringe claim that cuneiform tablets are “scalar-encoded” data storage—no NMR, HRXRD, or micro-CT was
+            ever performed—while arguing that the underlying mechanism of physical memory in clay is real and
+            measurable.
+          </p>
+          <span class="url">clayremembers.macachor.org</span>
+        </a>
+
+        <a class="card bio" href="https://dnacodon.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Applied tool</span>
+          <h3>DNA Codon — Codon Optimizer</h3>
+          <p>
+            An RNN-based codon optimization tool using host-specific codon frequency tables weighted by the
+            Macachor density differential. It integrates ClinVar variant lookup and is framed as complementary to
+            prime editing for gene therapy (HBB, PAH, DMD).
+          </p>
+          <span class="url">dnacodon.macachor.org</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- SYMBOLIC -->
+    <section class="category" id="symbolic">
+      <div class="section-head">
+        <div>
+          <h2>Symbolic &amp; Educational Projects</h2>
+          <p>Child-oriented scalar education and a distinct multi-spiritual tarot project.</p>
+        </div>
+        <span class="count">2 sites</span>
+      </div>
+
+      <div class="grid">
+        <a class="card symbolic" href="https://kids.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Education</span>
+          <h3>Kids — Scalar Fields Adventure</h3>
+          <p>
+            A child-oriented educational page introducing scalar fields through the metaphor of an “invisible
+            blanket” covering the universe. It profiles the four MGDH figures—Macachor (the Scalar Explorer),
+            Gauss (the Pattern Finder), De Pretto (the Energy Seer), and Hamilton (the Number Wizard)—and links
+            scalar fields to ocean waves, temperature maps, music, and magnets.
+          </p>
+          <span class="url">kids.macachor.org</span>
+        </a>
+
+        <a class="card symbolic" href="https://tarrot.macachor.org/" target="_blank" rel="noopener">
+          <span class="badge">Symbolic</span>
+          <h3>Tarrot — The Sacred Web <span class="sic">[sic]</span></h3>
+          <p>
+            A distinct, non-scalar project: a <strong>79-card multi-spiritual tarot deck</strong> authored by
+            Jannie Bui Brown and illustrated by James W. Brown IV, born from James’s traumatic brain injury
+            recovery. The deck is gender-neutral, has no reversals, and weaves tarot with astrology, gemstones,
+            yoga, mudra, and mantra.
+          </p>
+          <span class="url">tarrot.macachor.org</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- STATUS -->
+    <section class="status-note" id="status">
+      <h2>Corpus status note</h2>
+      <p>
+        Several pages explicitly mark their own claims as <strong>“Geometry Open”</strong> or
+        <strong>“Physics Open.”</strong> This is an internal epistemic discipline: it distinguishes declared
+        commitments from verified results. This landing page preserves those status labels rather than flattening
+        the corpus into a single register of settled claims.
+      </p>
+      <div class="totals" aria-label="Category counts">
+        <span>Foundational 2</span>
+        <span>Institutional critique 4</span>
+        <span>Physics 4</span>
+        <span>Mathematics 5</span>
+        <span>Biology/material 4</span>
+        <span>Symbolic/educational 2</span>
+        <span><strong>Total: 21 sites</strong></span>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>
+        <strong>The Macachor Research Corpus</strong> · categorized landing page · inventory dated 5 November 2026.
+      </p>
+      <p>
+        Summaries are based on the titles, structure, and page labels supplied for this corpus; live-page
+        verification is pending. External links open in a new tab.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
